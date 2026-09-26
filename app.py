@@ -13,6 +13,9 @@ with open('model.pkl', 'rb') as f: #means we are opening the file in read binary
 
 app = FastAPI()
 
+tier_1_cities = ["Mumbai", "Delhi", "Banglore", "Chennai", "Kolkata", "Hyderabad", "Pune"]
+tier_2_cities = ["Jaipur", "Chandigarh", "Indore", "Lucknow", "Patna", "Ranchi", "Visakhapatnam", "Coimbatore", "Bhopal", "Nagpur", "Vadodra", "Surat", "Rajkot", "Jodhpur", "Raipur", "Amritsar", "Varanasi", "Agra", "Dehradun", "Mysore", "Jabalpur", "Guwahati", "Thiruvananthapuram", "Ludhiana", "Nashik", "Allahabad", "Udaipur", "Aurangabad", "Hubli", "Belgaum", "Salem", "Vijaywada", "Tiruchirappalli", "Bhavnagar", "Gwalior", "Dhanbad", "Bareilly", "Aligarh", "Gaya", "Kozhikode", "Warangal", "Kolhapur", "Bilaspur", "Jalandhar", "Noida", "Guntur", "Asansol", "Siliguri"]
+
 #now we will make a pydantic model to validate the incoming data:
 #step 1: we will create a class 'UserInput' jo ki BaseModel se inherit karegi.:
 class UserInput(BaseModel): #now isme total 7 fields hongi.... fir hame isme thode discription and validation add karne hai jo ki ham typing modele ke annotated se karenge 
@@ -56,5 +59,19 @@ class UserInput(BaseModel): #now isme total 7 fields hongi.... fir hame isme tho
             return "Middle Aged"
         else:
             return "Senior"
-        
+    #ye ban gayi hamari age group ki computed field.
 
+    #Now we will create another computed field named city tier:
+    @computed_field
+    @property
+    def city_tier(self) -> int:
+        if self.city in 'tier_1_cities':
+            return 1
+        elif self.city in tier_2_cities:
+            return 2
+        else:
+            return 3
+
+    #Computed fields can be said as features that we add, and this as a whole is called feature engineering.
+
+    
