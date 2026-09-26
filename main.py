@@ -87,7 +87,7 @@ def predict_premium(data: UserInput): #yaha pe ek function create kiya by the na
 
     '''now that hamara model load ho chuka hai, ab hame ek proper input format create karna hai... aur hame ek row ka data pass karna hai hamarae model me... aur ye input pandas dataframe ke format me bheja jayega kyuki jo ML model hai jo rando forest model hai vo panda dataframe object ke oopar train hua hai  '''
 
-    input_df = pd.dataframe([{
+    input_df = pd.DataFrame([{
         'bmi': data.bmi,
         'age_group': data.age_group,
         'lifestyle_risk': data.lifestyle_risk,
