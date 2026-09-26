@@ -16,7 +16,9 @@ app = FastAPI()
 tier_1_cities = ["Mumbai", "Delhi", "Banglore", "Chennai", "Kolkata", "Hyderabad", "Pune"]
 tier_2_cities = ["Jaipur", "Chandigarh", "Indore", "Lucknow", "Patna", "Ranchi", "Visakhapatnam", "Coimbatore", "Bhopal", "Nagpur", "Vadodra", "Surat", "Rajkot", "Jodhpur", "Raipur", "Amritsar", "Varanasi", "Agra", "Dehradun", "Mysore", "Jabalpur", "Guwahati", "Thiruvananthapuram", "Ludhiana", "Nashik", "Allahabad", "Udaipur", "Aurangabad", "Hubli", "Belgaum", "Salem", "Vijaywada", "Tiruchirappalli", "Bhavnagar", "Gwalior", "Dhanbad", "Bareilly", "Aligarh", "Gaya", "Kozhikode", "Warangal", "Kolhapur", "Bilaspur", "Jalandhar", "Noida", "Guntur", "Asansol", "Siliguri"]
 
-#now we will make a pydantic model to validate the incoming data:
+
+'''now we will make a pydantic model to validate the incoming data:'''
+
 #step 1: we will create a class 'UserInput' jo ki BaseModel se inherit karegi.:
 class UserInput(BaseModel): #now isme total 7 fields hongi.... fir hame isme thode discription and validation add karne hai jo ki ham typing modele ke annotated se karenge 
     age: Annotated[int, Field(..., gt=0, lt=120, description= 'Age of the user')] #this will be an integer... and field function ko call karke ham required (...) kar denge for the input... and fir validation add kar denge of gt=0, lt=120... then we can also add description just like i did.
@@ -74,4 +76,10 @@ class UserInput(BaseModel): #now isme total 7 fields hongi.... fir hame isme tho
 
     #Computed fields can be said as features that we add, and this as a whole is called feature engineering.
 
-    
+'''Pydantic model to ban gaya
+Now we will create our predict endpoint'''
+
+#Sabse pehle ham ek route create karnge i.e the predict route:
+@app.post('/predict')
+def predict_premium(data: UserInput): #yaha pe ek function create kiya by the name of predict_premium... isko input me user ka data milega by the name 'data'... aur ye 'data' kis type ka hoga? ye hamare UserInput type ka object hoga jo hamara pydantic model hai .
+
