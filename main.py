@@ -55,13 +55,13 @@ class UserInput(BaseModel): #now isme total 7 fields hongi.... fir hame isme tho
     @property
     def age_group(self) -> str:
         if self.age <25:
-            return "Young"
+            return "young"
         elif self.age < 45:
-            return "Adult"
+            return "adult"
         elif self.age < 60:
-            return "Middle Aged"
+            return "middle_aged"
         else:
-            return "Senior"
+            return "senior"
     #ye ban gayi hamari age group ki computed field.
 
     #Now we will create another computed field named city tier:
