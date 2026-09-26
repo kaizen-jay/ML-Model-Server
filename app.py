@@ -28,4 +28,33 @@ class UserInput(BaseModel): #now isme total 7 fields hongi.... fir hame isme tho
     @computed_field
     @property
     #now we will create a new function by the name of bmi:
-    
+    def bmi(self) -> float: #isme hame ek self object mil raha hai and jo palat ke mil raha hai i.e a float, and ye function mujhe return kar raha hai:
+        return self.weight/(self.height**2)
+    #Ye ban gayi hamari first computed field.
+
+    #now we will create another computed field by the name lifestyle risk:
+    @computed_field
+    @property
+    def lifestyle_risk(self) -> str:
+        if self.smoker and self.bmi > 30:
+            return "high"
+        elif self.smoker or self.bmi > 27:
+            return "medium"
+        else:
+            return "low"
+    #Ye ban gayi hamari lifestyle risk computed field
+
+    #Now we will create another computed field by the name age group:
+    @computed_field
+    @property
+    def age_group(self) -> str:
+        if self.age <25:
+            return "Young"
+        elif self.age < 45:
+            return "Adult"
+        elif self.age < 60:
+            return "Middle Aged"
+        else:
+            return "Senior"
+        
+
