@@ -81,5 +81,6 @@ Now we will create our predict endpoint'''
 
 #Sabse pehle ham ek route create karnge i.e the predict route:
 @app.post('/predict')
-def predict_premium(data: UserInput): #yaha pe ek function create kiya by the name of predict_premium... isko input me user ka data milega by the name 'data'... aur ye 'data' kis type ka hoga? ye hamare UserInput type ka object hoga jo hamara pydantic model hai .
+def predict_premium(data: UserInput): #yaha pe ek function create kiya by the name of predict_premium... isko input me user ka data milega by the name 'data'... aur ye 'data' kis type ka hoga? ye hamare UserInput type ka object hoga jo hamara pydantic model hai. 
+#To hame request body se data aayega, vo seedha chala jayega hamare pydantic model ke paas i.e UserInput. Hamara pydantic model then usko validate karega, computed fields nikalega AUR FIR vo palat ke hame 'data' ke form me mil jayega.
 
