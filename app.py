@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, computed_field
 from typing import Literal, Annotated
 import pickle 
@@ -84,3 +85,22 @@ Now we will create our predict endpoint'''
 def predict_premium(data: UserInput): #yaha pe ek function create kiya by the name of predict_premium... isko input me user ka data milega by the name 'data'... aur ye 'data' kis type ka hoga? ye hamare UserInput type ka object hoga jo hamara pydantic model hai. 
 #To hame request body se data aayega, vo seedha chala jayega hamare pydantic model ke paas i.e UserInput. Hamara pydantic model then usko validate karega, computed fields nikalega AUR FIR vo palat ke hame 'data' ke form me mil jayega.
 
+    '''now that hamara model load ho chuka hai, ab hame ek proper input format create karna hai... aur hame ek row ka data pass karna hai hamarae model me... aur ye input pandas dataframe ke format me bheja jayega kyuki jo ML model hai jo rando forest model hai vo panda dataframe object ke oopar train hua hai  '''
+
+    input_df = pd.dataframe([{
+        'bmi': data.bmi,
+        'age_group': data.age_group,
+        'lifestyle_risk': data.lifestyle_risk,
+        'city_tier': data.city_tier,
+        'income_lpa': data.income_lpa,
+        'occupation': data.occupation
+    }]) #now we will create a panda dataframe jisme ki ham bas ek row rakhenge and usme ham ek dictionary pass karenge... in sakbo ek variable me store kar lenge by the name input_df.
+    #ye ban gaya hamara input jo ham apne ml model ke paas bhejenge.
+
+    #ab hame predicton karna hai toh:
+
+    prediction = model.predict(input_df)[0]#oopar hamne jo model import kiya hai uske predict function ko call karenge...fir usme ham pass kar denge 'input_df'... fir isse palat ke hame list me ek output milega... aur hame uss list ka 0th item chahiye hoga... aur yahi hoga hamara 'prediction'... aur isi prediction ko hame json ke format me return karna hai... for this we will use fastapi.responses se jsonresponse
+
+    return JSONResponse(status_code= 200, content={'predicted_category': prediction})
+
+'''THAT'S IT, THIS IS OUR ML MODEL '''
